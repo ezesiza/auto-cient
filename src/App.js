@@ -1,25 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+import "./App.css";
+import { Provider } from "react-redux";
+import store from "./store";
+import MerchantList from "./components/merchants/MerchantList";
+import CreateMerchant from "./components/merchants/CreateMerchant";
+import EditMerchant from "./components/merchants/EditMerchant";
+import MerchantDetail from "./components/merchants/MerchantDetail";
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <Router>
+        <div className="App">
+        <Switch>
+          <Route exact path="/add-merchant" component={CreateMerchant}>
+          </Route>
+        </Switch>
+        <Switch>
+          <Route exact path="/update-merchant/:id" component={EditMerchant}>
+          </Route>
+        </Switch>
+        <Switch>
+          <Route exact path="/merchant/:id" component={MerchantDetail}>
+          </Route>
+        </Switch>
+        <Switch>
+          <Route exact path="/" component={MerchantList}></Route>
+        </Switch>
+        </div>
+      </Router>
+    </Provider>
   );
 }
 
